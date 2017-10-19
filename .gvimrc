@@ -1,6 +1,13 @@
 "Enable syntax highlighting
 syntax enable
 
+" =============== General Config ===============
+set guifont=Source\ Code\ Pro:h12  " Set font to SCP for MacVim for airline
+set lines=30 columns=90            " Default window dimensions, TextEdit-esque
+set nowrap                         " Disable line wrapping
+set gcr=a:blinkon0                 " Disable blinking cursor in normal mode
+set autoread                       " Reload files changed outside of vim
+
 "Non-backwards compatible mode
 set nocompatible
 filetype off
@@ -79,10 +86,8 @@ let g:airline#extensions#tabline#enabled=1
 let g:Tex_UseMakefile=0
 "let g:Tex_CompileRule_pdf="make" 
 
+" Colorscheme
 colorscheme gruvbox
-
-" Make background transparent
-"hi Normal ctermbg=None
 
 " Override highlighted text color settings
 highlight Visual term=reverse cterm=NONE ctermbg=LightBlue ctermfg=None guibg=NONE

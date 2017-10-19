@@ -11,7 +11,7 @@ cnoremap Q q
 
 " Vundle plugin settings
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle***REMOVED***begin()
+call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 " Add Plugins below here:
@@ -35,7 +35,7 @@ Plugin 'elzr/vim-json'
 Plugin 'flazz/vim-colorschemes'
 
 " Plugins must be added before here:
-call vundle***REMOVED***end()
+call vundle#end()
 
 "Auto indent
 filetype plugin indent on
@@ -70,23 +70,16 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 
 " airline options
 set laststatus=2
-"let g:airline_section_b='%{strftime("%c")***REMOVED***'
-let g:airline_theme='wombat'
+"let g:airline_section_b='%{strftime("%c")}'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
-let g:airline***REMOVED***extensions***REMOVED***tabline***REMOVED***enabled=1
+let g:airline#extensions#tabline#enabled=1
 
 " vim-latex options
 let g:Tex_UseMakefile=0
 "let g:Tex_CompileRule_pdf="make" 
 
 " ColorScheme
-"
-" Solarized options
-"set background=none
-"let g:solarized_termcolors=16
-"let g:solarized_termtrans=1
-
-"colorscheme pride
 colorscheme gruvbox
 
 " Make background transparent

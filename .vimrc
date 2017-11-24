@@ -1,9 +1,17 @@
-"Enable syntax highlighting
-syntax enable
-
-"Non-backwards compatible mode
-set nocompatible
+" Basic config options
+syntax enable                      " Enable syntax highlighting
+filetype plugin indent on          " Auto indent
+set nocompatible                   " Non-backwards compatible mode
 filetype off
+set tabstop=4                      " Show existing tab with 4 spaces width
+set shiftwidth=4                   " When indenting with '>', use 4 spaces width
+set backspace=indent,eol,start     " Change backspace to normal
+set expandtab                      " On pressing tab, insert 4 spaces
+set cursorline                     " Highlight line cursor is on
+set colorcolumn=80                 " Color column at col. 80
+set number                         " Enable line numbering
+set incsearch                      " Automatically start matching search query
+set laststatus=2                   " Always show a status line
 
 " Map capitol commands for save and quit
 cnoremap W w
@@ -15,7 +23,6 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 " Add Plugins below here:
-
 
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
@@ -37,32 +44,10 @@ Plugin 'flazz/vim-colorschemes'
 " Plugins must be added before here:
 call vundle#end()
 
-"Auto indent
-filetype plugin indent on
 
 " Python highlighting
 let python_highlight_all=1
 
-" show existing tab with 4 spaces width
-set tabstop=4
-
-" when indentin with '>', use 4 spaces width
-set shiftwidth=4
-
-" on pressing tab, insert 4 spaces
-set expandtab
-
-"Highlight line cursor is on
-set cursorline
-
-"Color column at col. 80
-set colorcolumn=80
-
-"Change backspace to normal
-set backspace=indent,eol,start
-
-"Enable line numbering
-set number
 
 " YCM options
 let g:ycm_autoclose_preview_window_after_insertion=1

@@ -1,8 +1,6 @@
 " Basic config options
-syntax enable                      " Enable syntax highlighting
-filetype plugin indent on          " Auto indent
+syntax on                          " Enable syntax highlighting
 set nocompatible                   " Non-backwards compatible mode
-filetype off
 set tabstop=4                      " Show existing tab with 4 spaces width
 set shiftwidth=4                   " When indenting with '>', use 4 spaces width
 set backspace=indent,eol,start     " Change backspace to normal
@@ -16,6 +14,9 @@ set laststatus=2                   " Always show a status line
 " Map capitol commands for save and quit
 cnoremap W w
 cnoremap Q q
+
+" Required for Vundle!
+filetype off
 
 " Vundle plugin settings
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -43,6 +44,9 @@ Plugin 'flazz/vim-colorschemes'
 
 " Plugins must be added before here:
 call vundle#end()
+
+" Ok we can turn this back on now. Filtype checking and autoindenting!
+filetype plugin indent on
 
 
 " Python highlighting

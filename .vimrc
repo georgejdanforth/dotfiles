@@ -1,15 +1,18 @@
 " Basic config options
 syntax on                          " Enable syntax highlighting
 set nocompatible                   " Non-backwards compatible mode
-set tabstop=4                      " Show existing tab with 4 spaces width
-set shiftwidth=4                   " When indenting with '>', use 4 spaces width
-set backspace=indent,eol,start     " Change backspace to normal
 set expandtab                      " On pressing tab, insert 4 spaces
+set shiftwidth=4                   " When indenting with '>', use 4 spaces width
+set softtabstop=4                  " Show existing tab with 4 spaces width
+set backspace=indent,eol,start     " Change backspace to normal
 set cursorline                     " Highlight line cursor is on
 set colorcolumn=80                 " Color column at col. 80
 set number                         " Enable line numbering
 set incsearch                      " Automatically start matching search query
 set laststatus=2                   " Always show a status line
+set autoindent                     " Start newlines with the current indentation level
+set smartindent                    " Make indentation smarter
+set cindent                        " C-style indentation of for all files
 
 " Map capitol commands for save and quit
 cnoremap W w
@@ -41,6 +44,8 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'sheerun/vim-wombat-scheme'
 Plugin 'elzr/vim-json'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'raimondi/yaifa'
+Plugin 'Vimjas/vim-python-pep8-indent'
 
 " Plugins must be added before here:
 call vundle#end()

@@ -46,6 +46,8 @@ Plugin 'elzr/vim-json'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'raimondi/yaifa'
 Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 " Plugins must be added before here:
 call vundle#end()

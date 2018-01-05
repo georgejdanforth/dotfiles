@@ -38,5 +38,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 """ Look and feel
 colorscheme gruvbox                              " Set gruvbox as main colorscheme.
 
+set laststatus=2                                 " Always show status bar.
 let g:airline_theme='gruvbox'                    " Set the airline theme to gruvbox
 let g:airline#extensions#tabline#enabled=1       " Use airline for tabs.
+
+""" VimR config
+if has('gui_vimr')
+    set termguicolors                            " Ensures that airline is rendered by vimr.
+endif

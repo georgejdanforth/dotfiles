@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,17 +102,20 @@ export EDITOR="vim"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim="nvim"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias cat="pygmentize -g"
 alias ls="gls --color"
 alias dircolors="gdircolors"
-alias vimconfig="$EDITOR ~/.vimrc"
+alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
 alias logins="logins.py"
+alias libreoffice="soffice"
 
 # Quorum Stuff
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias quorum-db-dev='ssh -Nnf db-quorum-dev'
 alias quorum-db-prod='ssh -Nnf db-quorum-prod'
+alias quorum-db-states='ssh -Nnf db-quorum-states-testing'
 
 q() {
     cd /Users/georgejdanforth/quorum/quorum-site/;

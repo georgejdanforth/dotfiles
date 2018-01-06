@@ -1,6 +1,4 @@
-# vim:ft=zsh ts=4 sw=4 sts=4
-
-PROMPT='$FG[109]$(get_cwd) $(git_prompt_info)$FG[$BRIGHT_YELLOW]❭$FG[$BRIGHT_ORANGE]❭$FG[$NEUTRAL_RED]❭ $reset_color'
+PROMPT='%{$FG[$BRIGHT_BLUE]%}$(get_cwd)%{$reset_color%} $(git_prompt_info)%{$reset_color%}%{$FG[$BRIGHT_YELLOW]❭%}%{$reset_color%}%{$FG[$BRIGHT_ORANGE]❭%}%{$reset_color%}%{$FG[$NEUTRAL_RED]❭%}%{$reset_color%} '
 
 # COLOR PALETTE
 BRIGHT_RED=167

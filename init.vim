@@ -1,4 +1,4 @@
-""" Basic config options
+" Basic config options
 set cursorline                                   " Highlight the current line.
 set expandtab                                    " On pressing tab, insert 4 spaces.
 set shiftwidth=4                                 " When indenting with '>', use 4 spaces.
@@ -10,6 +10,7 @@ set smartindent                                  " Make indentation smarter.
 set cindent                                      " C-style indentation for all files.
 set background=dark                              " Set background to dark. Gruvbox looks best this way.
 set guicursor=                                   " Disable changing cursor shape in insert mode.
+set scrolloff=10                                 " Start scrolling 10 lines from the top/bottom.
 
 
 """ Mappings
@@ -27,6 +28,9 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'vim-airline/vim-airline-themes'        " Colorscheme bundle for airline.
     Plug 'raimondi/delimitmate'                  " Autocompletion for delimiters.
     Plug 'roxma/nvim-completion-manager'         " Autocompletion for all sorts of things.
+    Plug '/usr/local/opt/fzf'                    " Locally installed fzf
+    Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
+    Plug 'georgejdanforth/vim-clip'
 
 " Plugins must be added before here.
 call plug#end()

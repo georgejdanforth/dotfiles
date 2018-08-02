@@ -50,7 +50,7 @@ ZSH_THEME="george-theme"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -93,6 +93,9 @@ export EDITOR="nvim"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+#
+# Misc. keys and stuff I don't want to version control
+source /Users/georgejdanforth/.keys
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -110,12 +113,14 @@ alias dircolors="gdircolors"
 alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
 alias logins="logins.py"
 alias libreoffice="soffice"
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
 # Quorum Stuff
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias quorum-db-dev='ssh -Nnf db-quorum-dev'
 alias quorum-db-prod='ssh -Nnf db-quorum-prod'
 alias quorum-db-states='ssh -Nnf db-quorum-states-testing'
+alias estunnel='ssh -Nnf estunnel'
 
 q() {
     cd /Users/georgejdanforth/quorum/quorum-site/;

@@ -17,7 +17,7 @@ export PATH=$PATH:$EC2_HOME/bin
 export PATH=/Library/PostgreSQL/9.6/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/georgejdanforth/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set default username
 DEFAULT_USER="georgejdanforth"
@@ -95,7 +95,7 @@ export EDITOR="nvim"
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 #
 # Misc. keys and stuff I don't want to version control
-source /Users/georgejdanforth/.keys
+source $HOME/.keys
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -123,8 +123,8 @@ alias quorum-db-states='ssh -Nnf db-quorum-states-testing'
 alias estunnel='ssh -Nnf estunnel'
 
 q() {
-    cd /Users/georgejdanforth/quorum/quorum-site/;
-    source /Users/georgejdanforth/virtualenvs/QuorumEnv/bin/activate;
+    cd $HOME/quorum/quorum-site/;
+    source $HOME/virtualenvs/QuorumEnv/bin/activate;
     npm-exec;
     clear;
 }
@@ -183,3 +183,6 @@ ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=$BRIGHT_YELLOW
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Update dotfiles script
+source $HOME/update-config.sh

@@ -27,7 +27,11 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'vim-airline/vim-airline'               " Helpful status bar plugin.
     Plug 'vim-airline/vim-airline-themes'        " Colorscheme bundle for airline.
     Plug 'raimondi/delimitmate'                  " Autocompletion for delimiters.
-    Plug 'roxma/nvim-completion-manager'         " Autocompletion for all sorts of things.
+    Plug 'ncm2/ncm2'                             " Neovim completion manager.
+    Plug 'ncm2/ncm2-bufword'                     " Autocomplete for words in buffer.
+    Plug 'ncm2/ncm2-path'                        " Autocomplete for paths.
+    Plug 'ncm2/ncm2-jedi'                        " Autocomplete for python.
+    Plug 'roxma/nvim-yarp'                       " Remote plugin manager.
     Plug '/usr/local/opt/fzf'                    " Locally installed fzf
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
     Plug 'georgejdanforth/vim-clip'
@@ -38,6 +42,9 @@ call plug#end()
 """ Plugin functionality
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+autocmd BufEnter * call ncm2#enable_for_buffer() " enable ncm2 for all buffers
+set completeopt=noinsert,menuone,noselect        " IMPORTANTE: :help Ncm2PopupOpen for more information
 
 """ Look and feel
 colorscheme gruvbox                              " Set gruvbox as main colorscheme.

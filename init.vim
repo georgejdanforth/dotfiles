@@ -35,6 +35,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug '/usr/local/opt/fzf'                    " Locally installed fzf
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
     Plug 'georgejdanforth/vim-clip'
+    Plug 'Vimjas/vim-python-pep8-indent'
 
 " Plugins must be added before here.
 call plug#end()

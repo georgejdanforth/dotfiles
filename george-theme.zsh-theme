@@ -1,5 +1,3 @@
-PROMPT='%{$FG[$BRIGHT_BLUE]%}$(get_cwd)%{$reset_color%} $(git_prompt_info)%{$reset_color%}%{$FG[$BRIGHT_YELLOW]❭%}%{$reset_color%}%{$FG[$BRIGHT_ORANGE]❭%}%{$reset_color%}%{$FG[$NEUTRAL_RED]❭%}%{$reset_color%} '
-
 # COLOR PALETTE
 BRIGHT_RED=167
 BRIGHT_GREEN=142
@@ -30,15 +28,9 @@ ZSH_THEME_GIT_PROMPT_SUFFIX=")"
 ZSH_THEME_GIT_PROMPT_DIRTY="$FG[$NEUTRAL_PURPLE]"
 ZSH_THEME_GIT_PROMPT_CLEAN="$FG[$NEUTRAL_GREEN]"
 
-function get_cwd {
-    if [[ "$PWD" == "$HOME" ]]; then
-        echo "~"
-    else
-        echo $(basename $PWD)
-    fi
-}
-
 function git_prompt_info () {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return 0
     echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX "
 }
+
+PROMPT='%{$FG[$BRIGHT_BLUE]%}%1~%{$reset_color%} $(git_prompt_info)%{$reset_color%}%{$FG[$NEUTRAL_RED]%}⚑%{$reset_color%} '

@@ -135,6 +135,7 @@ FADED_AQUA=66
 FADED_ORANGE=130
 
 # Highlighting options:
+typeset -gA ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[default]=none
 ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=$BRIGHT_RED,bold
 ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=$BRIGHT_AQUA

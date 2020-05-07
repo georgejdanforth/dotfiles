@@ -1,26 +1,11 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# MIGRATE $PATH SETTINGS FROM .bash_profile
-
-# Setting PATH for Python 3.5
-# The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
-export PATH
-
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.5.1
-export PATH=$PATH:$EC2_HOME/bin
-
-# Add postgres stuff to PATH
-export PATH=/Library/PostgreSQL/9.6/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
 # Set default username
-DEFAULT_USER="georgejdanforth"
+DEFAULT_USER="george"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -114,20 +99,6 @@ alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
 alias logins="logins.py"
 alias libreoffice="soffice"
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-
-# Quorum Stuff
-alias npm-exec='PATH=$(npm bin):$PATH'
-alias quorum-db-dev='ssh -Nnf db-quorum-dev'
-alias quorum-db-prod='ssh -Nnf db-quorum-prod'
-alias quorum-db-states='ssh -Nnf db-quorum-states-testing'
-alias estunnel='ssh -Nnf estunnel'
-
-q() {
-    cd $HOME/quorum/quorum-site/;
-    source $HOME/virtualenvs/QuorumEnv/bin/activate;
-    npm-exec;
-    clear;
-}
 
 # Activate ls colors
 eval `dircolors ~/.dir_colors/dircolors.256dark`

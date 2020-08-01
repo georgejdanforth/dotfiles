@@ -54,6 +54,9 @@ set laststatus=2                                 " Always show status bar.
 let g:airline_theme='gruvbox'                    " Set the airline theme to gruvbox
 let g:airline#extensions#tabline#enabled=1       " Use airline for tabs.
 
+""" Filetype-specific
+autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
+
 """ VimR config
 if has('gui_vimr')
     set termguicolors                            " Ensures that airline is rendered by vimr.

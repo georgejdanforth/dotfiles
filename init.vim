@@ -45,6 +45,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'preservim/nerdtree'
     Plug 'mileszs/ack.vim'
+    Plug 'junegunn/goyo.vim'
 
 " Plugins must be added before here.
 call plug#end()
@@ -74,6 +75,7 @@ let g:airline#extensions#tabline#enabled=1       " Use airline for tabs.
 
 """ Filetype-specific
 autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType html setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 
 """ VimR config
 if has('gui_vimr')

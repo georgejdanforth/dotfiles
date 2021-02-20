@@ -9,8 +9,12 @@ set autoindent                                   " Start newlines with the curre
 set smartindent                                  " Make indentation smarter.
 set cindent                                      " C-style indentation for all files.
 set background=dark                              " Set background to dark. Gruvbox looks best this way.
-set guicursor=                                   " Disable changing cursor shape in insert mode.
 set scrolloff=10                                 " Start scrolling 10 lines from the top/bottom.
+
+set guicursor=
+    \n-v-c-r-cr:block
+    \,i-ci:ver25
+    \,a:blinkwait0-blinkoff400-blinkon250
 
 
 """ Mappings
@@ -18,6 +22,9 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
+cnoreabbrev NT NERDTree
+cnoreabbrev nt NERDTree
+cnoreabbrev ag Ack
 
 """ vim-plug plugin settings
 call plug#begin('~/.config/nvim/plugged')
@@ -36,6 +43,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
     Plug 'georgejdanforth/vim-clip'
     Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'preservim/nerdtree'
+    Plug 'mileszs/ack.vim'
 
 " Plugins must be added before here.
 call plug#end()
@@ -46,6 +55,15 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd BufEnter * call ncm2#enable_for_buffer() " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect        " IMPORTANTE: :help Ncm2PopupOpen for more information
+
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+let g:ack_mappings = {
+    \ 'i': '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
+    \ 's': '<C-W><CR><C-W>K' }
+
+let NERDTreeShowHidden=1
 
 """ Look and feel
 colorscheme gruvbox                              " Set gruvbox as main colorscheme.

@@ -91,14 +91,21 @@ source $HOME/.keys
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
+
+alias tmux="tmux -2"
+alias nu='tmux new-window -c $(find ~ -type d -maxdepth 1 | fzf)'
+
+alias pa='pyenv activate $(pyenv versions | egrep "^ *\d" -v | fzf | sed "s/^ *//g")'
+alias pd='pyenv deactivate'
+
 alias zshconfig="$EDITOR ~/.zshrc"
-alias cat="pygmentize -g"
+alias cat="gcat"
 alias ls="gls --color"
 alias dircolors="gdircolors"
 alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
-alias logins="logins.py"
 alias libreoffice="soffice"
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias weather="curl 'wttr.in/nyc?u'"
 
 # Activate ls colors
 eval `dircolors ~/.dir_colors/dircolors.256dark`

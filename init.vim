@@ -22,9 +22,15 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
+
 cnoreabbrev NT NERDTree
 cnoreabbrev nt NERDTree
-cnoreabbrev ag Ack
+
+cnoreabbrev ff Files
+cnoreabbrev fg GFiles
+cnoreabbrev fb Buffers
+cnoreabbrev rg Rg
+
 
 """ vim-plug plugin settings
 call plug#begin('~/.config/nvim/plugged')
@@ -44,8 +50,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'georgejdanforth/vim-clip'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'preservim/nerdtree'
-    Plug 'mileszs/ack.vim'
-    Plug 'junegunn/goyo.vim'
 
 " Plugins must be added before here.
 call plug#end()
@@ -76,6 +80,7 @@ let g:airline#extensions#tabline#enabled=1       " Use airline for tabs.
 """ Filetype-specific
 autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType html setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 
 """ VimR config
 if has('gui_vimr')

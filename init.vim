@@ -10,6 +10,7 @@ set smartindent                                  " Make indentation smarter.
 set cindent                                      " C-style indentation for all files.
 set background=dark                              " Set background to dark. Gruvbox looks best this way.
 set scrolloff=10                                 " Start scrolling 10 lines from the top/bottom.
+set termguicolors
 
 set guicursor=
     \n-v-c-r-cr:block
@@ -35,20 +36,22 @@ cnoreabbrev rg Rg
 """ vim-plug plugin settings
 call plug#begin('~/.config/nvim/plugged')
 " Add plugins below here.
+"
 
-    Plug 'flazz/vim-colorschemes'                " Massive colorscheme bundle.
-    Plug 'vim-airline/vim-airline'               " Helpful status bar plugin.
-    Plug 'vim-airline/vim-airline-themes'        " Colorscheme bundle for airline.
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig'
+
+    Plug 'rktjmp/lush.nvim'
+    Plug 'npxbr/gruvbox.nvim'
+    Plug 'ojroques/nvim-hardline'
+
     Plug 'raimondi/delimitmate'                  " Autocompletion for delimiters.
-    Plug 'ncm2/ncm2'                             " Neovim completion manager.
-    Plug 'ncm2/ncm2-bufword'                     " Autocomplete for words in buffer.
-    Plug 'ncm2/ncm2-path'                        " Autocomplete for paths.
-    Plug 'ncm2/ncm2-jedi'                        " Autocomplete for python.
+    Plug 'hrsh7th/nvim-compe'
+
     Plug 'roxma/nvim-yarp'                       " Remote plugin manager.
     Plug '/usr/local/opt/fzf'                    " Locally installed fzf
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
     Plug 'georgejdanforth/vim-clip'
-    Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'preservim/nerdtree'
 
 " Plugins must be added before here.
@@ -58,31 +61,50 @@ call plug#end()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-autocmd BufEnter * call ncm2#enable_for_buffer() " enable ncm2 for all buffers
-set completeopt=noinsert,menuone,noselect        " IMPORTANTE: :help Ncm2PopupOpen for more information
-
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-endif
-let g:ack_mappings = {
-    \ 'i': '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
-    \ 's': '<C-W><CR><C-W>K' }
+" autocmd BufEnter * call ncm2#enable_for_buffer() " enable ncm2 for all buffers
+" set completeopt=menuone,noselect        " IMPORTANTE: :help Ncm2PopupOpen for more information
 
 let NERDTreeShowHidden=1
 
+lua <<EOF
+require('lspconfig').pyright.setup{}
+
+require('nvim-treesitter.configs').setup{
+    ensure_installed = "maintained",
+    ignore_install = {},
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+}
+
+require('hardline').setup{
+    theme = 'gruvbox',
+}
+
+require('compe').setup{
+    enabled = true,
+    autocomplete = true,
+    source = {
+        path = true,
+        buffer = true,
+        calc = true,
+        spell = true,
+        tags = true,
+        nvim_lsp = true,
+        nvim_lue = false,
+        omni = false,
+    }
+}
+EOF
+
 """ Look and feel
 colorscheme gruvbox                              " Set gruvbox as main colorscheme.
-
 set laststatus=2                                 " Always show status bar.
-let g:airline_theme='gruvbox'                    " Set the airline theme to gruvbox
-let g:airline#extensions#tabline#enabled=1       " Use airline for tabs.
 
 """ Filetype-specific
 autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType html setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-
-""" VimR config
-if has('gui_vimr')
-    set termguicolors                            " Ensures that airline is rendered by vimr.
-endif

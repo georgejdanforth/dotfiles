@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/plugged')
 "
 
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
     Plug 'neovim/nvim-lspconfig'
 
     Plug 'rktjmp/lush.nvim'
@@ -74,6 +75,14 @@ require('nvim-treesitter.configs').setup{
     ignore_install = {},
     highlight = {
         enable = true,
+        custom_captures = {
+            ['method'] = 'GruvboxAqua',
+            ['function'] = 'GruvboxAqua',
+            ['field'] = 'GruvboxWhite',
+            ['parameter'] = 'GruvboxWhite',
+            ['constant.builtin'] = 'GruvboxPurple',
+            ['type.builtin'] = 'GruvboxPurple',
+        },
     },
     indent = {
         enable = true,

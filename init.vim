@@ -36,7 +36,6 @@ cnoreabbrev rg Rg
 """ vim-plug plugin settings
 call plug#begin('~/.config/nvim/plugged')
 " Add plugins below here.
-"
 
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
@@ -54,6 +53,11 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
     Plug 'georgejdanforth/vim-clip'
     Plug 'preservim/nerdtree'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
+
+    Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'psf/black', { 'branch': 'stable' }
 
 " Plugins must be added before here.
 call plug#end()
@@ -68,7 +72,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let NERDTreeShowHidden=1
 
 lua <<EOF
-require('lspconfig').pyright.setup{}
+require('lspconfig').pyls.setup{}
 
 require('nvim-treesitter.configs').setup{
     ensure_installed = "maintained",
@@ -82,10 +86,11 @@ require('nvim-treesitter.configs').setup{
             ['parameter'] = 'GruvboxWhite',
             ['constant.builtin'] = 'GruvboxPurple',
             ['type.builtin'] = 'GruvboxPurple',
+            ['keyword.operator'] = 'GruvboxRed',
         },
     },
     indent = {
-        enable = true,
+        enable = false,
     },
 }
 

@@ -4,7 +4,7 @@ set expandtab                                    " On pressing tab, insert 4 spa
 set shiftwidth=4                                 " When indenting with '>', use 4 spaces.
 set softtabstop=4                                " Show existing tab with 4 spaces width.
 set colorcolumn=80                               " Color colum and column 80.
-set number                                       " Enable line numbering.
+set number relativenumber                        " Enable line numbering.
 set autoindent                                   " Start newlines with the current indentation level.
 set smartindent                                  " Make indentation smarter.
 set cindent                                      " C-style indentation for all files.

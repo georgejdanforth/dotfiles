@@ -32,6 +32,8 @@ cnoreabbrev fg GFiles
 cnoreabbrev fb Buffers
 cnoreabbrev rg Rg
 
+noremap Y "+y
+
 
 """ vim-plug plugin settings
 call plug#begin('~/.config/nvim/plugged')
@@ -48,10 +50,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'raimondi/delimitmate'                  " Autocompletion for delimiters.
     Plug 'hrsh7th/nvim-compe'
 
-    Plug 'roxma/nvim-yarp'                       " Remote plugin manager.
     Plug '/usr/local/opt/fzf'                    " Locally installed fzf
     Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
-    Plug 'georgejdanforth/vim-clip'
     Plug 'preservim/nerdtree'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
@@ -65,9 +65,6 @@ call plug#end()
 """ Plugin functionality
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" autocmd BufEnter * call ncm2#enable_for_buffer() " enable ncm2 for all buffers
-" set completeopt=menuone,noselect        " IMPORTANTE: :help Ncm2PopupOpen for more information
 
 let NERDTreeShowHidden=1
 

@@ -168,3 +168,4 @@ set laststatus=2                                 " Always show status bar.
 autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType html setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2

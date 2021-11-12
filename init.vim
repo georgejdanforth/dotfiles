@@ -19,12 +19,21 @@ set guicursor=
 
 
 """ Mappings
+let mapleader=" "
+
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 
 noremap Y "+y
+
+nnoremap <Leader>q :clo<CR>
+nnoremap <Leader>r :e!<CR>
+nnoremap <Leader>ff :Telescope find_files<CR>
+nnoremap <Leader>fg :Telescope git_files<CR>
+nnoremap <Leader>fb :Telescope buffers<CR>
+nnoremap <Leader>rg :Telescope live_grep<CR>
 
 
 """ vim-plug plugin settings

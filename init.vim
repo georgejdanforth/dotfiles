@@ -9,7 +9,7 @@ set autoindent                                   " Start newlines with the curre
 set smartindent                                  " Make indentation smarter.
 set cindent                                      " C-style indentation for all files.
 set background=dark                              " Set background to dark. Gruvbox looks best this way.
-set scrolloff=10                                 " Start scrolling 10 lines from the top/bottom.
+set scrolloff=8                                  " Start scrolling 8 lines from the top/bottom.
 set termguicolors
 
 set guicursor=

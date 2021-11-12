@@ -42,19 +42,23 @@ call plug#begin('~/.config/nvim/plugged')
 
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
+
     Plug 'neovim/nvim-lspconfig'
+
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-path'
 
     Plug 'rktjmp/lush.nvim'
     Plug 'ellisonleao/gruvbox.nvim'
     Plug 'ojroques/nvim-hardline'
 
     Plug 'raimondi/delimitmate'
-    Plug 'hrsh7th/nvim-compe'
-
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
 
-    " telescope stuff
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
 
@@ -65,16 +69,12 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 """ Plugin functionality
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 let g:black_linelength=79
 let g:black_skip_string_normalization=1
 
 lua <<EOF
 
 local nvim_lsp = require('lspconfig')
-
 -- Use an on_attach function to only map the following keys after the language
 -- server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -93,6 +93,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -120,8 +121,61 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+local cmp = require('cmp')
+cmp.setup{
+    mapping = {
+        ['<Tab>'] = function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            else
+                fallback()
+            end
+        end,
+        ['<S-Tab>'] = function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                fallback()
+            end
+        end,
+        ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
+    },
+    formatting = {
+        format = function(entry, vim_item)
+            vim_item.menu = ({
+                buffer = '[buf]',
+                nvim_lsp = '[lsp]',
+                path = '[path]',
+            })[entry.source.name]
+            return vim_item
+        end,
+    },
+}
+cmp.setup.cmdline('/', {
+    completion = { autocomplete = false, },
+    sources = cmp.config.sources(
+        { { name = 'nvim_lsp_document_symbol' }, },
+        { { name = 'buffer', keyword_length = 5 }, }
+    ),
+})
+cmp.setup.cmdline(':', {
+    completion = { autocomplete = false, },
+    sources = cmp.config.sources(
+        { { name = 'path' }, },
+        { { name = 'cmdline', max_item_count = 20, keyword_length = 5 }, }
+    )
+})
+
 require('nvim-treesitter.configs').setup{
-    ensure_installed = "maintained",
+    ensure_installed = 'maintained',
     ignore_install = {},
     highlight = {
         enable = true,
@@ -144,20 +198,6 @@ require('hardline').setup{
     theme = 'gruvbox',
 }
 
-require('compe').setup{
-    enabled = true,
-    autocomplete = true,
-    source = {
-        path = true,
-        buffer = true,
-        calc = true,
-        spell = true,
-        tags = true,
-        nvim_lsp = true,
-        nvim_lue = false,
-        omni = false,
-    }
-}
 EOF
 
 """ Look and feel

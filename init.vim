@@ -24,14 +24,6 @@ cnoreabbrev Q q
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 
-cnoreabbrev NT NERDTree
-cnoreabbrev nt NERDTree
-
-cnoreabbrev ff Files
-cnoreabbrev fg GFiles
-cnoreabbrev fb Buffers
-cnoreabbrev rg Rg
-
 noremap Y "+y
 
 
@@ -44,17 +36,18 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
 
     Plug 'rktjmp/lush.nvim'
-    Plug 'npxbr/gruvbox.nvim'
+    Plug 'ellisonleao/gruvbox.nvim'
     Plug 'ojroques/nvim-hardline'
 
-    Plug 'raimondi/delimitmate'                  " Autocompletion for delimiters.
+    Plug 'raimondi/delimitmate'
     Plug 'hrsh7th/nvim-compe'
 
-    Plug '/usr/local/opt/fzf'                    " Locally installed fzf
-    Plug 'junegunn/fzf.vim'                      " Vim bindings for fzf
-    Plug 'preservim/nerdtree'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
+
+    " telescope stuff
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'psf/black', { 'branch': 'stable' }

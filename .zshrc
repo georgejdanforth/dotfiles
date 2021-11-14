@@ -54,7 +54,7 @@ ZSH_THEME="george-theme"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-autosuggestions brew web-search httpie osx)
+plugins=(git vi-mode zsh-autosuggestions brew macos)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,33 +78,27 @@ export EDITOR="nvim"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-#
-# Misc. keys and stuff I don't want to version control
-source $HOME/.keys
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
+alias cat="gcat"
+alias ls="gls --color"
+alias dircolors="gdircolors"
 
 alias tmux="tmux -2"
-alias nu='tmux new-window -c $(find ~ -type d -maxdepth 1 | fzf)'
+alias vim="nvim"
+alias fv='$EDITOR $(fzf)'
+
+alias zshconfig="$EDITOR ~/.zshrc"
+alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
+alias sshconfig="$EDITOR ~/.ssh/config"
 
 alias pa='pyenv activate $(pyenv versions | egrep "^ *\d" -v | fzf | sed "s/^ *//g")'
 alias pd='pyenv deactivate'
 
-alias zshconfig="$EDITOR ~/.zshrc"
-alias cat="gcat"
-alias ls="gls --color"
-alias dircolors="gdircolors"
-alias vimconfig="$EDITOR ~/.config/nvim/init.vim"
-alias libreoffice="soffice"
-alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias weather="curl 'wttr.in/nyc?u'"
 
 # Activate ls colors

@@ -147,10 +147,12 @@ ZSH_HIGHLIGHT_STYLES[alias]=fg=$BRIGHT_GREEN,bold
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=$BRIGHT_YELLOW
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=$BRIGHT_YELLOW
 
-
-
 # Title bar color -- adjust rgb values after 'brightness;'
 # printf -- $'\033]6;1;bg;red;brightness;40\a\033]6;1;bg;green;brightness;40\a\033]6;1;bg;blue;brightness;40\a'
+
+# pyenv stuff
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"

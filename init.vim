@@ -3,7 +3,7 @@ set cursorline                                   " Highlight the current line.
 set expandtab                                    " On pressing tab, insert 4 spaces.
 set shiftwidth=4                                 " When indenting with '>', use 4 spaces.
 set softtabstop=4                                " Show existing tab with 4 spaces width.
-set colorcolumn=80                               " Color colum and column 80.
+set colorcolumn=88                               " Color colum and column 80.
 set number relativenumber                        " Enable line numbering.
 set autoindent                                   " Start newlines with the current indentation level.
 set smartindent                                  " Make indentation smarter.
@@ -32,8 +32,13 @@ nnoremap <Leader>q :clo<CR>
 nnoremap <Leader>r :e!<CR>
 nnoremap <Leader>ff :Telescope find_files<CR>
 nnoremap <Leader>fg :Telescope git_files<CR>
-nnoremap <Leader>fb :Telescope buffers<CR>
+nnoremap <Leader>fb :Telescope file_browser<CR>
 nnoremap <Leader>rg :Telescope live_grep<CR>
+
+nnoremap <Leader>co :copen<CR>
+nnoremap <Leader>cq :cclose<CR>
+nnoremap <Leader>cn :cnext<CR>
+nnoremap <Leader>cp :cprev<CR>
 
 
 """ vim-plug plugin settings
@@ -50,6 +55,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-path'
+    Plug 'L3MON4D3/LuaSnip'
 
     Plug 'rktjmp/lush.nvim'
     Plug 'ellisonleao/gruvbox.nvim'
@@ -58,9 +64,12 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'raimondi/delimitmate'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
+    " Plug 'airblade/vim-gitgutter'
 
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-file-browser.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'psf/black', { 'branch': 'stable' }
@@ -69,8 +78,8 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 """ Plugin functionality
-let g:black_linelength=79
-let g:black_skip_string_normalization=1
+" let g:black_linelength=79
+" let g:black_skip_string_normalization=1
 
 lua <<EOF
 
@@ -90,6 +99,13 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  --nmap \gd :LspDefinition<cr>
+  --nmap \gt :tab split<cr>:LspDefinition<cr>
+  --nmap \gs :sp<cr>:LspDefinition<cr>
+  --nmap \gv :vsp<cr>:LspDefinition<cr>
+  buf_set_keymap('n', 'gdt', '<cmd>tab split<CR><cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gdv', '<cmd>vsp<CR><cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gdx', '<cmd>sp<CR><cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -101,7 +117,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-  --buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   --buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   --buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   --buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -111,18 +127,43 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and map buffer
 -- local keybindings when the language server attaches
-local servers = { 'pyright', 'rust_analyzer', 'gopls' }
+local servers = {
+    "pyright",
+    -- 'jedi_language_server',
+    'rust_analyzer',
+    'gopls',
+    'tsserver',
+    'eslint',
+    'tailwindcss',
+}
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        flags = { debounce_text_changes = 150 },
     }
-  }
 end
+
+--[[
+nvim_lsp.pylsp.setup({
+    on_attach = on_attach,
+    flags = { debounce_text_changes = 150 },
+    settings = {
+        plugins = {
+            flake8 = { enabled = false, maxLineLength = 88 },
+            pycodestyle = { enabled = false },
+            pyflakes = { enabled = false },
+        },
+    },
+})
+--]]
 
 local cmp = require('cmp')
 cmp.setup{
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
     mapping = {
         ['<Tab>'] = function(fallback)
             if cmp.visible() then
@@ -179,6 +220,7 @@ require('nvim-treesitter.configs').setup{
     ignore_install = {},
     highlight = {
         enable = true,
+        disable = { 'yaml' },
         custom_captures = {
             ['method'] = 'GruvboxAqua',
             ['function'] = 'GruvboxAqua',
@@ -190,13 +232,22 @@ require('nvim-treesitter.configs').setup{
         },
     },
     indent = {
-        enable = false,
+        enable = true,
+        disable = { 'python' }
     },
 }
 
 require('hardline').setup{
     theme = 'gruvbox',
 }
+
+require('telescope').setup{
+    defaults = {
+        file_ignore_patterns = {"tilt_build_context", "tilt_build_staging"},
+    },
+}
+require('telescope').load_extension('file_browser')
+require('telescope').load_extension('fzf')
 
 EOF
 
@@ -205,7 +256,13 @@ colorscheme gruvbox                              " Set gruvbox as main colorsche
 set laststatus=2                                 " Always show status bar.
 
 """ Filetype-specific
+" autocmd FileType h setlocal noexpandtab shiftwidth=4 softtabstop=4 tabstop=4
+" autocmd FileType c setlocal noexpandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType go setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType html setlocal noexpandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType json setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType javascriptreact setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType typescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType typescriptreact setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
